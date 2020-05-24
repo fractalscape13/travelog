@@ -36,7 +36,7 @@ To run this project, you will:
 * Mongoose
 * Bcrypt
 * Axios
-* Multer
+* Colorthief
 * Body Parser
 * Cors
 * Dotenv
