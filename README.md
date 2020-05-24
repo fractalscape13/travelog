@@ -1,68 +1,52 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Travelog
 
-## Available Scripts
+#### _May 2020_
+#### By _**Joseph Wangemann**_
 
-In the project directory, you can run:
+## Description
+_App to store info about travel destinations_
 
-### `npm start`
+## Specs / Screen Shots
+* On page load, a user will see...
+![Name](./src/assets/image.png?raw=true "Image description")
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Installation/Setup Instructions
+This project uses MongoDb Atlas as a database and Express-Sessions for authentication persistence.  It requires a user to create a .env file in the root directory of this project which will contain three values:
+  * CONNECTION_STRING = 'Your unique connection string from MongoDb Atlas goes here'
+  * SESSION_SECRET = 'Your unique session secret goes here. It can be any string'
+  * apiPort = Whatever port you want the back-end to run on goes here. It will be a number, not a string. Example: 8000
 
-### `npm test`
+To run this project, you will:
+  * Get a connection string from MongoDb Atlas
+  * Clone the repository: `git clone https://github.com/fractalscape13/travelog`
+  * In the root project directory, run `npm install` to install all dependencies. 
+  * You will open two terminals and navigate to the root directory.  In one terminal you will run the back-end `npx nodemon`, and in the other you will run the front-end `npm start`
+  *Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
+* React
+* create-react-app
+* Redux / React-Redux
+* React-Router
+* Express / Express-Session
+* Node
+* Nodemon
+* MongoDb
+* Mongoose
+* Bcrypt
+* Axios
+* Multer
+* Body Parser
+* Cors
+* Dotenv
 
-### `npm run build`
+## Known Bugs/Contact
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+_If you have any questions or comments at all, please submit a pull request._
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### License
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+*This webpage is licensed under the MIT license.*
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Copyright (c) 2020 **_Joseph Wangemann**
