@@ -1,35 +1,50 @@
 import React from 'react';
 import './../App.css';
 import tulum from '../assets/tulum.png'
-import ColorThief from "colorthief";
+import { Palette } from 'color-thief-react';
 
 function App() {
 
-    const img = {tulum};
-    let colors = [];
-
-    function snagColors(img, index) {
-      const result = ColorThief.getColorAsync(img)
-        .then(data => {
-          const rgb = ColorThief.convertColorRgb(data)
-          colors[index] = rgb
-        })
-        .catch(err => {
-          console.log("error", err)
-        })
-      console.log(result)
-    }
-
   return (
     <div>
-      {/* <img src={tulum} alt="tulum" onLoad={() => {
-              const colorThief = new ColorThief();
-              const result = colorThief.getColor(img.source, 25);
-              console.log("RESULT::", result)
-            }}/> */}
       <img src={tulum} alt="tulum" />
       <h1>Travelog</h1>
-      <p onClick={() => snagColors(img)} className="clickable">Check this shit out</p>
+      <Palette src={tulum} colorCount={10}>
+        {({ data, loading, error }) => (
+          <React.Fragment>
+            <div style={{ color: data[0] }}>
+              Text with the predominant color
+            </div>
+            <div style={{ color: data[1] }}>
+              Text with a color
+            </div>
+            <div style={{ color: data[2] }}>
+              Text with a color
+            </div>
+            <div style={{ color: data[3] }}>
+              Text with a color
+            </div>
+            <div style={{ color: data[4] }}>
+              Text with a color
+            </div>
+            <div style={{ color: data[5] }}>
+              Text with a color
+            </div>
+            <div style={{ color: data[6] }}>
+              Text with a color
+            </div>
+            <div style={{ color: data[7] }}>
+              Text with a color
+            </div>
+            <div style={{ color: data[8] }}>
+              Text with a color
+            </div>
+            <div style={{ color: data[9] }}>
+              Text with a color
+            </div>
+          </React.Fragment>
+        )}
+      </Palette>
       <div className="stripe"></div>
     </div>
   );
