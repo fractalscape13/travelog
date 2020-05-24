@@ -10,7 +10,10 @@ body {
 }
 
 img {
-  max-width: 100vw;
+  width: 100vw;
+  height: 300px;
+  object-fit: cover;
+  object-position: 0 0;
 }
 
 .stripe {
@@ -24,4 +27,33 @@ img {
 .clickable:hover {
   cursor: pointer;
   opacity: .7;
+}
+
+button {
+  padding-top: 4px;
+  font-family: inherit;
+  margin: 3px;
+  border-width: 3px;
+  border-image: 
+  linear-gradient(to right bottom, rgb(85, 1, 145), rgb(199, 110, 2)) 1;
+  border-radius: 10em;
+  background-color: transparent;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+input {
+  text-align: center;
+  font-family: inherit;
+  border: 0;
+  border-bottom: 2px solid black;
+  outline: 0;
+  font-size: 17px;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+  margin-bottom: 10px;
 }

@@ -18,7 +18,7 @@ module.exports = {
             .catch(err => console.log(err));
           if (matchPasswords) {
             let user = {
-              username: foundUser[0].username,
+              name: foundUser[0].name,
               id: foundUser[0]._id,
               loggedIn: true
             };
@@ -38,33 +38,33 @@ module.exports = {
       .catch((e) => console.log(e));
   },
   registerUser: async (req, res, next) => {
-    const { username, password, email } = req.body;
+    const { name, password, email } = req.body;
+    console.log("here we GOO", name, password, email)
     MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
       .then(async (client) => {
         console.log("Connected to Database");
         const db = client.db("travelog");
         const usersCollection = db.collection("users");
         const foundUserEmail = await usersCollection.find({email}).toArray();
-        const foundUserName = await usersCollection.find({username}).toArray();
-        if (foundUserEmail[0] || foundUserName[0]) {
+        if (foundUserEmail[0]) {
           res
             .status(409)
             .json(
-              "That user exists already, please register with another email address."
+              "That email is already in use, please register with another email address."
             );
         } else {
           const saltRounds = 12;
           bcrypt.genSalt(saltRounds).then(salt => {
             bcrypt.hash(password, salt).then(hashedPassword => {
               usersCollection
-                .insertOne({ email, username, password: hashedPassword })
+                .insertOne({ email, name, password: hashedPassword })
                 .then(() => {
                   usersCollection
                     .find({email})
                     .toArray()
                     .then((results) => {
                       let user = {
-                        username: results[0].username,
+                        name: results[0].name,
                         id: results[0]._id,
                         loggedIn: true
                       };
@@ -80,8 +80,8 @@ module.exports = {
       })
       .catch((e) => console.log(e));
   },
-  deleteUser: (req, res, next) => {
-    const { id } = req.body;
+  deleteUser: (req, res) => {
+    const { id } = req.params;
     MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
       .then(async (client) => {
         console.log("Connected to Database");
@@ -91,15 +91,12 @@ module.exports = {
         let ObjectID = mongodb.ObjectID;
         usersCollection
           .deleteOne({_id: ObjectID(id)})
-        const videosCollection = db.collection("videos");
-        videosCollection
-          .remove({userId: id})
           req.session.destroy();
         res.status(200).send("Successful delete");
       })
       .catch((e) => console.log(e));
   },
-  logout: (req, res, next) => {
+  logout: (req, res) => {
     req.session.destroy();
     res.sendStatus(200);
   },

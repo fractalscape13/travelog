@@ -1,0 +1,11 @@
+.registerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
