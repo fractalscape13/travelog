@@ -82,6 +82,7 @@ module.exports = {
   },
   deleteUser: (req, res) => {
     const { id } = req.params;
+    console.log('id: ', id)
     MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
       .then(async (client) => {
         console.log("Connected to Database");
@@ -93,6 +94,22 @@ module.exports = {
           .deleteOne({_id: ObjectID(id)})
           req.session.destroy();
         res.status(200).send("Successful delete");
+      })
+      .catch((e) => console.log(e));
+  },
+  editUser: (req, res) => {
+    const { name, id } = req.body;
+    MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
+      .then(async (client) => {
+        // console.log("Connected to Database");
+        // const db = client.db("travelog");
+        // const usersCollection = db.collection("users");
+        // let mongodb = require("mongodb");
+        // let ObjectID = mongodb.ObjectID;
+        // usersCollection
+        //   .deleteOne({_id: ObjectID(id)})
+        //   req.session.destroy();
+        // res.status(200).send("Successful delete");
       })
       .catch((e) => console.log(e));
   },

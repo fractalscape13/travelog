@@ -4,7 +4,7 @@ function Blog() {
 
   return (
     <div>
-      <h1>Da fucken blog</h1> 
+      <h1>Microblog</h1> 
     </div>
   );
 }

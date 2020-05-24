@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { setUser, logIn } from "../reducers/reducer";
+import { setUser } from "../reducers/reducer";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import './Login.css'
@@ -20,8 +20,7 @@ function Login(props) {
       .post("/auth/login", body)
       .then(res => {
         dispatch(setUser(res.data));
-        dispatch(logIn());
-        history.push("/account");
+        history.push("/log");
       })
       .catch(err => {
         setLoggedInFailed(true);

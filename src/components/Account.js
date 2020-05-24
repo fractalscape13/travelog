@@ -1,85 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import tulum from '../assets/tulum.png'
-import sunset from '../assets/sunset.png'
-import { Palette } from 'color-thief-react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { setUser } from '../reducers/reducer';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../reducers/reducer';
 
-function Account() {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const loggedIn = useSelector(state => state.loggedIn);
+function Account(props) {
+    const [name, setName] = useState('')
+    const [userId, setUserId] = useState('')
+    const [nameChange, setChangeName] = useState('')
 
-  useEffect(() => {
-    axios.get('/auth/getSession')
-      .then(res => {
-        if(res.data.loggedIn){
-            const action = {
-              loggedIn: res.data.loggedIn,
-              currentId: res.data.id,
-              currentUser: res.data.name
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        axios.get('/auth/getSession')
+          .then(res => {
+            if(res.data.loggedIn){
+                setName(res.data.name)
+                setUserId(res.data.id)
             }
-            dispatch(setUser(action));
-        } else {
-            history.push('/')
-        }
-      })
-  })
+          }).catch(e => console.log(e))
+      }, [])
+
+      function submitChanges (){
+          let body = {
+              name: nameChange,
+              id: userId
+          }
+          axios.post('auth/editUser', body)
+          .then(res => {
+              setName(res.data.name)
+          }).catch(e => console.log(e))
+      }
+      
+      function deleteAccount(){
+          let id = userId
+          axios.delete(`/auth/deleteUser/${id}`)
+          .then(res => {
+              //probably should dispatch all the redux account closure stuff here
+              dispatch(logOut())
+              history.push('/')
+          }).catch(e => console.log(e))
+      }
 
   return (
     <div>
-    { loggedIn ? 
-            <div>
-              <img src={sunset} alt="tulum" />
-              <h1>Travelog</h1>
-              <button>Sign out</button>
-              <button>Account settings</button>
-              <Palette src={sunset} colorCount={10}>
-                {({ data, loading, error }) => (
-                  <React.Fragment>
-                    <div style={{ color: data[0] }}>
-                      Text with a color
-                    </div>
-                    <div style={{ color: data[1] }}>
-                      Text with a color
-                    </div>
-                    <div style={{ color: data[2] }}>
-                      Text with a color
-                    </div>
-                    <div style={{ color: data[3] }}>
-                      Text with a color
-                    </div>
-                    <div style={{ color: data[4] }}>
-                      Text with a color
-                    </div>
-                    <div style={{ color: data[5] }}>
-                      Text with a color
-                    </div>
-                    <div style={{ color: data[6] }}>
-                      Text with a color
-                    </div>
-                    <div style={{ color: data[7] }}>
-                      Text with a color
-                    </div>
-                    <div style={{ color: data[8] }}>
-                      Text with a color
-                    </div>
-                    <div style={{ color: data[9] }}>
-                      Text with a color
-                    </div>
-                  </React.Fragment>
-                )}
-              </Palette>
-            </div>
-            : 
-            <div></div>
-        }
-        </div>
-        )
-  
-    
+        <h3>Welcome, {name}</h3>
+        <input placeholder="Change your display name" onChange={e => setChangeName(e.target.value)} /><br/>
+        <button onClick={submitChanges}>Submit Changes</button>
+        <button onClick={deleteAccount}>Delete Account</button>
+        <p className="clickable" onClick={props.backToAccount}>Back to Account</p>
+    </div>
+  );
 }
 
 export default Account;

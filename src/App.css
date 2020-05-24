@@ -48,4 +48,5 @@ input {
   background: transparent;
   transition: border-color 0.2s;
   margin-bottom: 10px;
+  width: fit-content;
 }

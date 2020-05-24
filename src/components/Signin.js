@@ -8,7 +8,6 @@ function Signin() {
     const [registerView, setRegisterView] = useState(false)
   return (
     <div>
-      <img src={tulum} alt="tulum" />
       <h1>Sign in / Register</h1>
        { registerView ? <Register toggleLogin={() => setRegisterView(false)} /> : <Login setRegisterView={() => setRegisterView(true)} /> }
     </div>

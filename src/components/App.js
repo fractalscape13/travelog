@@ -2,7 +2,7 @@ import React from 'react';
 import './../App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Splash from './Splash'
-import Account from './Account'
+import Log from './Log'
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
       <Router>
           <Switch>
             <Route exact path="/" component={Splash} />
-            <Route path="/account" component={Account} />
+            <Route path="/log" component={Log} />
           </Switch>
       </Router>
   );

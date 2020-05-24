@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { setUser, logIn } from "../reducers/reducer";
+import { setUser } from "../reducers/reducer";
 import './Register.css'
 
 function Register(props) {
@@ -27,7 +27,6 @@ function Register(props) {
       .then(res => {
         console.log('response from post request', res.data)
         dispatch(setUser(res.data));
-        dispatch(logIn());
         history.push("/");
       })
       .catch(err => {
