@@ -16,14 +16,6 @@ img {
   object-position: 0 0;
 }
 
-.stripe {
-  width: 100vw;
-  height: 150px;
-  background-color: black;
-  position: absolute;
-  bottom: 0px;
-}
-
 .clickable:hover {
   cursor: pointer;
   opacity: .7;

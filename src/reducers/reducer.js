@@ -1,7 +1,7 @@
-
 let initialState = {
     loggedIn: false,
-    currentUser: null
+    currentUser: null,
+    currentId: null
 }
 
 const SET_USER = "SET_USER";
@@ -27,7 +27,6 @@ export function setUser(user) {
     };
 }
 
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOG_IN:
@@ -42,7 +41,9 @@ export default (state = initialState, action) => {
       });
     case SET_USER:
         return Object.assign({}, state, {
-            currentUser: action.payload
+            loggedIn: action.payload.loggedIn,
+            currentUser: action.payload.name,
+            currentId: action.payload.id
         })
     default:
       return state;

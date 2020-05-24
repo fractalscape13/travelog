@@ -69,7 +69,7 @@ module.exports = {
                         loggedIn: true
                       };
                       req.session.user = user;
-                      res.status(200).send(results);
+                      res.status(200).send(user);
                     })
                     .catch((e) => console.log(e));
                 })

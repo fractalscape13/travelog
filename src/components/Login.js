@@ -21,7 +21,7 @@ function Login(props) {
       .then(res => {
         dispatch(setUser(res.data));
         dispatch(logIn());
-        history.push("/");
+        history.push("/account");
       })
       .catch(err => {
         setLoggedInFailed(true);
