@@ -12,3 +12,11 @@ body {
 img {
   max-width: 100vw;
 }
+
+.stripe {
+  width: 100vw;
+  height: 150px;
+  background-color: black;
+  position: absolute;
+  bottom: 0px;
+}
