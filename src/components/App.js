@@ -5,15 +5,18 @@ import ColorThief from "colorthief";
 
 function App() {
 
-    const img = new Image();
-    img.source = {tulum};
+    const img = {tulum};
     let colors = [];
 
     thiefColor(img, index) {
-      const result = ColorThief.getColorAsync(img).then(data => {
-        const rgb = ColorThief.convertColorRgb(data)
-        colors[index] = rgb
-      })
+      const result = ColorThief.getColorAsync(img)
+        .then(data => {
+          const rgb = ColorThief.convertColorRgb(data)
+          colors[index] = rgb
+        })
+        .catch(err => {
+          console.log("error", err)
+        })
       console.log(result)
     }
 
