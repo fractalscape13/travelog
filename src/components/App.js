@@ -8,7 +8,7 @@ function App() {
     const img = {tulum};
     let colors = [];
 
-    thiefColor(img, index) {
+    function snagColors(img, index) {
       const result = ColorThief.getColorAsync(img)
         .then(data => {
           const rgb = ColorThief.convertColorRgb(data)
@@ -29,7 +29,7 @@ function App() {
             }}/> */}
       <img src={tulum} alt="tulum" />
       <h1>Travelog</h1>
-      <p>Check this shit out</p>
+      <p onClick={() => snagColors(img)} className="clickable">Check this shit out</p>
       <div className="stripe"></div>
     </div>
   );

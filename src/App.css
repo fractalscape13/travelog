@@ -20,3 +20,8 @@ img {
   position: absolute;
   bottom: 0px;
 }
+
+.clickable:hover {
+  cursor: pointer;
+  opacity: .7;
+}
