@@ -15,9 +15,9 @@ function Log() {
   const dispatch = useDispatch();
   const loggedIn = useSelector(state => state.loggedIn);
   const [settings, setSettings] = useState(false);
-  const [currentUser, setCurrentUser] = useState('')
-  const [displayCheck, setDisplayCheck] = useState(false)
-
+  const [currentUser, setCurrentUser] = useState('');
+  const [displayCheck, setDisplayCheck] = useState(false);
+  const [chosenColor, setChosenColor] = useState(false);
 
   useEffect(() => {
     setDisplayCheck(false)
@@ -58,42 +58,43 @@ function Log() {
     { loggedIn && !settings ? 
             <div>
               <img src={sunset} alt="tulum" />
-              {displayCheck ? <h1>{currentUser}'s Travelog</h1> : null}
+              {displayCheck ? <h1 style={{color: chosenColor}}>{currentUser}'s Travelog</h1> : null}
               <button onClick={signOut}>Sign out</button>
               <button onClick={() => setSettings(true)}>Account settings</button>
               <Palette src={sunset} colorCount={10}>
                 {({ data, loading, error }) => (
                   <React.Fragment>
-                    <div style={{ color: data[0] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[0])}style={{ color: data[0] }}>
+                      Click to choose this color
                     </div>
-                    <div style={{ color: data[1] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[1])}style={{ color: data[1] }}>
+                      Click to choose this color
                     </div>
-                    <div style={{ color: data[2] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[2])}style={{ color: data[2] }}>
+                      Click to choose this color
                     </div>
-                    <div style={{ color: data[3] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[3])}style={{ color: data[3] }}>
+                      Click to choose this color
                     </div>
-                    <div style={{ color: data[4] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[4])}style={{ color: data[4] }}>
+                      Click to choose this color
                     </div>
-                    <div style={{ color: data[5] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[5])}style={{ color: data[5] }}>
+                      Click to choose this color
                     </div>
-                    <div style={{ color: data[6] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[6])}style={{ color: data[6] }}>
+                      Click to choose this color
                     </div>
-                    <div style={{ color: data[7] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[7])}style={{ color: data[7] }}>
+                      Click to choose this color
                     </div>
-                    <div style={{ color: data[8] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[8])}style={{ color: data[8] }}>
+                      Click to choose this color
                     </div>
-                    <div style={{ color: data[9] }}>
-                      Text with a color
+                    <div className="clickable" onClick={() => setChosenColor(data[9])}style={{ color: data[9] }}>
+                      Click to choose this color
                     </div>
+                    
                   </React.Fragment>
                 )}
               </Palette>
