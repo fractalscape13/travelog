@@ -82,7 +82,6 @@ module.exports = {
   },
   deleteUser: (req, res) => {
     const { id } = req.params;
-    console.log('id: ', id)
     MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
       .then(async (client) => {
         console.log("Connected to Database");
@@ -101,15 +100,27 @@ module.exports = {
     const { name, id } = req.body;
     MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
       .then(async (client) => {
-        // console.log("Connected to Database");
-        // const db = client.db("travelog");
-        // const usersCollection = db.collection("users");
-        // let mongodb = require("mongodb");
-        // let ObjectID = mongodb.ObjectID;
-        // usersCollection
-        //   .deleteOne({_id: ObjectID(id)})
-        //   req.session.destroy();
-        // res.status(200).send("Successful delete");
+        console.log("Connected to Database");
+        const db = client.db("travelog");
+        const usersCollection = db.collection("users");
+        let mongodb = require("mongodb");
+        let ObjectID = mongodb.ObjectID;
+        let resolved = await usersCollection
+        .updateOne({ _id: ObjectID(id) }, { $set: { name: name}})
+        usersCollection
+        .find({name: name})
+        .toArray()
+        .then(results => {
+          let user = {
+            name: results[0].name,
+            id: results[0]._id,
+            loggedIn: true
+          }       
+          console.log('this is req.session', req.session)
+          req.session.user = user
+          console.log('this is req.session AFTER', req.session)
+          res.status(200).send(results);
+        }).catch(err => console.log(err))
       })
       .catch((e) => console.log(e));
   },

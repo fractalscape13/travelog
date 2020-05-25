@@ -15,17 +15,24 @@ function Log() {
   const dispatch = useDispatch();
   const loggedIn = useSelector(state => state.loggedIn);
   const [settings, setSettings] = useState(false);
+  const [currentUser, setCurrentUser] = useState('')
+  const [displayCheck, setDisplayCheck] = useState(false)
+
 
   useEffect(() => {
+    setDisplayCheck(false)
     axios.get('/auth/getSession')
       .then(res => {
+        console.log('this is what log is evaluating', res.data)
         if(res.data.loggedIn){
             const action = {
               loggedIn: res.data.loggedIn,
               currentId: res.data.id,
               currentUser: res.data.name
             }
+            setCurrentUser(res.data.name)
             dispatch(setUser(action));
+            setDisplayCheck(true)
         } else {
             history.push('/')
         }
@@ -43,12 +50,15 @@ function Log() {
     history.push('/')
   }
 
+  function updatePlease(name){
+    setCurrentUser(name)
+  }
   return (
     <div>
     { loggedIn && !settings ? 
             <div>
               <img src={sunset} alt="tulum" />
-              <h1>Travelog</h1>
+              {displayCheck ? <h1>{currentUser}'s Travelog</h1> : null}
               <button onClick={signOut}>Sign out</button>
               <button onClick={() => setSettings(true)}>Account settings</button>
               <Palette src={sunset} colorCount={10}>
@@ -92,7 +102,7 @@ function Log() {
             : 
             loggedIn && settings ?
             <div>
-              <Account backToAccount={() => setSettings(false)} />
+              <Account updatePlease={updatePlease} backToAccount={() => setSettings(false)} />
             </div>
             :
             <Splash />

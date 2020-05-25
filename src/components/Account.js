@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../reducers/reducer';
+import { setUser } from "../reducers/reducer";
+
 
 function Account(props) {
     const [name, setName] = useState('')
@@ -27,17 +29,19 @@ function Account(props) {
               name: nameChange,
               id: userId
           }
-          axios.post('auth/editUser', body)
+          axios.put('/auth/editUser', body)
           .then(res => {
-              setName(res.data.name)
-          }).catch(e => console.log(e))
+              console.log('response', res.data)
+              setName(res.data[0].name)
+              props.updatePlease(res.data[0].name)
+            }).catch(e => console.log(e))
+            props.backToAccount()
       }
       
       function deleteAccount(){
           let id = userId
           axios.delete(`/auth/deleteUser/${id}`)
           .then(res => {
-              //probably should dispatch all the redux account closure stuff here
               dispatch(logOut())
               history.push('/')
           }).catch(e => console.log(e))
@@ -47,9 +51,9 @@ function Account(props) {
     <div>
         <h3>Welcome, {name}</h3>
         <input placeholder="Change your display name" onChange={e => setChangeName(e.target.value)} /><br/>
-        <button onClick={submitChanges}>Submit Changes</button>
-        <button onClick={deleteAccount}>Delete Account</button>
-        <p className="clickable" onClick={props.backToAccount}>Back to Account</p>
+        <button onClick={submitChanges}>Change Name</button>
+        <button onClick={deleteAccount}>! Delete Account !</button>
+        <p className="clickable" onClick={props.backToAccount}>Back to Account</p>  
     </div>
   );
 }

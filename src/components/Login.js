@@ -29,7 +29,7 @@ function Login(props) {
 
   return (
     <div className="accountContainer">
-      <p id="Title">Login</p>
+      <h2 id="Title">Login</h2>
       <form className="loginForm"
         onSubmit={e => {
           e.preventDefault();
@@ -52,7 +52,7 @@ function Login(props) {
         <button type="submit" placeholder="Login" value="Login">Sign in</button>
       </form>
       <p className="clickable" onClick={props.setRegisterView}>
-        New User? Register
+        New User? Register here
       </p>
       </div>
     

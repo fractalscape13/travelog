@@ -15,19 +15,16 @@ function Register(props) {
   const dispatch = useDispatch();
 
   function registerSubmit() {
-    console.log('register function fired')
     let body = {
       name,
       email,
       password
     };
-    console.log('body, pre-submit', body)
     axios
       .post("/auth/register", body)
       .then(res => {
-        console.log('response from post request', res.data)
         dispatch(setUser(res.data));
-        history.push("/");
+        history.push("/log");
       })
       .catch(err => {
         setRegisterFail(true);
@@ -37,7 +34,7 @@ function Register(props) {
 
   return (
     <div className="registerContainer">
-      <p>Register Now</p>
+      <h2>Register</h2>
       <form className="registerForm">
         <input
           type="text"
@@ -52,7 +49,7 @@ function Register(props) {
           placeholder="Email"
         ></input>
         <input
-          type="text"
+          type="password"
           name="password"
           onChange={e => setPassword(e.target.value)}
           placeholder="Password"
