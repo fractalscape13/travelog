@@ -38,8 +38,8 @@ To run this project, you will:
 * Axios
 * Body Parser
 * Color-Thief-React
-* Cors
 * Dotenv
+* Cors
 * React-Icons
 
 ## Known Bugs/Contact
