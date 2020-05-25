@@ -36,8 +36,8 @@ To run this project, you will:
 * Mongoose
 * Bcrypt
 * Axios
-* Color-Thief-React
 * Body Parser
+* Color-Thief-React
 * Cors
 * Dotenv
 * React-Icons
