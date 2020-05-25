@@ -50,4 +50,4 @@ _If you have any questions or comments at all, please submit a pull request._
 
 *This webpage is licensed under the MIT license.*
 
-Copyright (c) 2020 **_Joseph Wangemann, Nathan Wangemann**
+Copyright (c) 2020 **_Joseph Wangemann, Nathan Wangemann_**
