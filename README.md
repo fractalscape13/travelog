@@ -1,7 +1,7 @@
 # Travelog
 
 #### _May 2020_
-#### By _**Joseph Wangemann**_
+#### By _**Joseph Wangemann, Nathan Wangemann**_
 
 ## Description
 _App to store info about travel destinations_
@@ -40,6 +40,7 @@ To run this project, you will:
 * Body Parser
 * Cors
 * Dotenv
+* React-Icons
 
 ## Known Bugs/Contact
 
@@ -49,4 +50,4 @@ _If you have any questions or comments at all, please submit a pull request._
 
 *This webpage is licensed under the MIT license.*
 
-Copyright (c) 2020 **_Joseph Wangemann**
+Copyright (c) 2020 **_Joseph Wangemann, Nathan Wangemann**
