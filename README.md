@@ -1,7 +1,7 @@
 # Travelog
 
 #### _May 2020_
-#### By _**Joseph Wangemann, Nathan Wangemann**_
+#### By _**Joseph Wangemann & Nathan Wangemann**_
 
 ## Description
 _App to store info about travel destinations_
