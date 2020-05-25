@@ -1,18 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { logOut } from '../reducers/reducer';
 import { setUser } from "../reducers/reducer";
+import Colors from './Colors';
+import DeleteConfirm from './DeleteConfirm';
+import './Account.css';
 
 
 function Account(props) {
     const [name, setName] = useState('')
+    const [background, setBackgroundColor] = useState('')
+    const [headers, setHeadersColor] = useState('')
+    const [text, setTextColor] = useState('')
     const [userId, setUserId] = useState('')
     const [nameChange, setChangeName] = useState('')
+    const [deleteAccount, setDeleteAccount] = useState(false)
 
-    const history = useHistory();
-    const dispatch = useDispatch();
 
     useEffect(() => {
         axios.get('/auth/getSession')
@@ -33,29 +35,33 @@ function Account(props) {
           .then(res => {
               console.log('response', res.data)
               setName(res.data[0].name)
-              props.updatePlease(res.data[0].name)
+              props.updateName(res.data[0].name)
             }).catch(e => console.log(e))
             props.backToAccount()
       }
       
-      function deleteAccount(){
-          let id = userId
-          axios.delete(`/auth/deleteUser/${id}`)
-          .then(res => {
-              dispatch(logOut())
-              history.push('/')
-          }).catch(e => console.log(e))
-      }
 
-  return (
-    <div>
-        <h3>Welcome, {name}</h3>
-        <input placeholder="Change your display name" onChange={e => setChangeName(e.target.value)} /><br/>
-        <button onClick={submitChanges}>Change Name</button>
-        <button onClick={deleteAccount}>! Delete Account !</button>
-        <p className="clickable" onClick={props.backToAccount}>Back to Account</p>  
-    </div>
-  );
+    if (deleteAccount) {
+        return (
+            <DeleteConfirm userId={userId} returnToAccount={() => setDeleteAccount(false)}/>
+        )
+    } else {
+        return (
+        <div className="account" style={{backgroundColor: background}}>
+            <h1 style={{color: headers}}>Welcome, {name}</h1>
+            <input className="displayNameInput" style={{color: text}} placeholder="Change your display name" onChange={e => setChangeName(e.target.value)} /><br/>
+            <button style={{color: text}} onClick={submitChanges}>Change Name</button>
+            <div className="colorsParent">
+                <Colors styleType={"Background"} setColor={setBackgroundColor} />
+                <Colors styleType={"Headers"} setColor={setHeadersColor} />
+                <Colors styleType={"Text"} setColor={setTextColor} />
+            </div>
+            <p style={{color: text}}>just for displaying the color text changes, {text}, {background}, {headers}</p>
+            <button style={{color: text}} onClick={() => setDeleteAccount(true)}>! Delete Account !</button>
+            <p style={{color: text}} className="clickable" onClick={props.backToAccount}>Back to Account</p>  
+        </div>
+        );
+    }
 }
 
 export default Account;

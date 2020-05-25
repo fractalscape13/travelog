@@ -53,3 +53,19 @@ input {
   width: fit-content;
   color: rgb(221, 221, 142);
 }
+
+.visible{
+  visibility: visible;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+.colorsParent{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  margin: 20px;
+}
