@@ -24,13 +24,17 @@ function Login(props) {
       })
       .catch(err => {
         setLoggedInFailed(true);
+        setTimeout(() => {
+          setLoggedInFailed(false)
+        }, 3000);
       });
+      document.getElementById("loginForm").reset();
   }
 
   return (
     <div className="accountContainer">
       <h2 id="Title">Login</h2>
-      <form className="loginForm"
+      <form id="loginForm" className="loginForm"
         onSubmit={e => {
           e.preventDefault();
           loginSubmit(email, password);

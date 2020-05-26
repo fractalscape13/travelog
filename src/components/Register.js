@@ -8,6 +8,7 @@ import './Register.css'
 function Register(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState('')
   const [registerFail, setRegisterFail] = useState(false);
 
@@ -28,14 +29,18 @@ function Register(props) {
       })
       .catch(err => {
         setRegisterFail(true);
+        setTimeout(() => {
+          setRegisterFail(false)
+        }, 3000);
         console.log(err);
       });
+      document.getElementById("registerForm").reset();
   }
 
   return (
     <div className="registerContainer">
       <h2>Register</h2>
-      <form className="registerForm">
+      <form id="registerForm" className="registerForm">
         <input
           type="text"
           name="name"
@@ -53,6 +58,12 @@ function Register(props) {
           name="password"
           onChange={e => setPassword(e.target.value)}
           placeholder="Password"
+        ></input>
+        <input
+          type="password"
+          name="password"
+          onChange={e => setConfirmPassword(e.target.value)}
+          placeholder="Confirm password"
         ></input>
         {registerFail ? (
           <p>

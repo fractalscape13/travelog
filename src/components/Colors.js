@@ -6,8 +6,7 @@ function Colors(props) {
 
   return (
     <div>
-
-      <h1>{props.styleType}</h1>
+        <h1 style={{color: props.pickedStyle}}>{props.styleType}</h1>
       <Palette src={tulum} colorCount={10}>
         {({ data, loading, error }) => (
           <React.Fragment>

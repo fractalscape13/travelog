@@ -20,6 +20,8 @@ module.exports = {
             let user = {
               name: foundUser[0].name,
               id: foundUser[0]._id,
+              colorProfile: foundUser[0].colorProfile,
+              logArray: foundUser[0].logArray,
               loggedIn: true
             };
             req.session.user = user;
@@ -57,7 +59,7 @@ module.exports = {
           bcrypt.genSalt(saltRounds).then(salt => {
             bcrypt.hash(password, salt).then(hashedPassword => {
               usersCollection
-                .insertOne({ email, name, password: hashedPassword })
+                .insertOne({ email, name, password: hashedPassword, colorProfile: { background: 'rgb(61, 54, 54)', headerColors: 'rgb(245, 245, 214)', text: 'rgb(245, 245, 214)'}, logArray: [] })
                 .then(() => {
                   usersCollection
                     .find({email})
@@ -66,6 +68,8 @@ module.exports = {
                       let user = {
                         name: results[0].name,
                         id: results[0]._id,
+                        colorProfile: results[0].colorProfile,
+                        logArray: results[0].logArray,
                         loggedIn: true
                       };
                       req.session.user = user;
@@ -111,9 +115,12 @@ module.exports = {
         .find({name: name})
         .toArray()
         .then(results => {
+          console.log('initial user results', results)
           let user = {
             name: results[0].name,
             id: results[0]._id,
+            colorProfile: results[0].colorProfile,
+            logArray: results[0].logArray,
             loggedIn: true
           }       
           console.log('this is req.session', req.session)
@@ -130,5 +137,48 @@ module.exports = {
   },
   getSession: (req, res) => {
     res.status(200).send(req.session.user)
+  },
+  saveColorProfile: (req, res) => {
+    const { background, headerColors, text, userId } = req.body;
+    console.log('userId', userId)
+    let colorProfile = { background, headerColors, text}
+    MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
+      .then(async (client) => {
+        console.log("Connected to Database");
+        const db = client.db("travelog");
+        const usersCollection = db.collection("users");
+        let mongodb = require("mongodb");
+        let ObjectID = mongodb.ObjectID;
+        usersCollection
+        .updateOne({ _id: ObjectID(userId) }, { $set: { colorProfile: colorProfile}})
+        delete req.session.user.colorProfile
+        req.session.user.colorProfile = colorProfile
+        res.status(200).send("Successfully saved profile");
+      })
+      .catch((e) => console.log(e));
+  },
+  getColorProfile: (req, res) => {
+    const { id } = req.body;
+    MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
+      .then(async (client) => {
+        console.log("Connected to Database");
+        const db = client.db("travelog");
+        const usersCollection = db.collection("users");
+        let mongodb = require("mongodb");
+        let ObjectID = mongodb.ObjectID;
+        usersCollection
+        .find({ _id: ObjectID(id) })
+        .toArray()
+        .then(results => {
+          console.log('results', results)
+          let styles = {
+            backround: results[0].colorProfile.background,
+            headerColors: results[0].colorProfile.headerColors,
+            text: results[0].colorProfile.text
+          }       
+          res.status(200).send(styles);
+        }).catch(err => console.log(err))
+      })
+      .catch((e) => console.log(e));
   }
 };

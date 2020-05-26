@@ -18,13 +18,17 @@
     "mongoose": "^5.9.15",
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
+    "react-animations": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
+    "react-loadingg": "^1.7.2",
     "react-redux": "^7.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "redux": "^4.0.5"
+    "react-toastify": "^6.0.5",
+    "redux": "^4.0.5",
+    "styled-components": "^5.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

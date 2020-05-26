@@ -1,10 +1,41 @@
-
-
 .account{
-    padding: 50px;
-    margin-top: -30px;
+    padding-top: 50px;
+    margin-top: -5px;
+    height: 100%;
+    width: 100%;
 }
 
 .displayNameInput{
     width: 375px;
+}
+
+.spacer{
+    width: 20vw;
+}
+
+.buttonOrganizer{
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.changeNameParent{
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.changeNameContainer{
+    display: flex;
+}
+
+#deleteButton{
+  border-image: 
+  linear-gradient(to right bottom, black, rgb(88, 88, 88), rgb(168, 168, 167)) 1;
+}
+
+.box{
+    transform-origin: 50% 50%;
 }

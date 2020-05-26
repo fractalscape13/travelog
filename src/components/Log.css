@@ -1,0 +1,39 @@
+.logParent{
+    height: 100vh;
+    width: 100vw;
+}
+
+.accountContainer{
+    height: 100vh;
+    width: 100vw;
+}
+
+.logHeader{
+    border-bottom: 1px solid silver;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+.navBar{
+    width: 25vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 75px;
+}
+.titleBox{
+    width: 75vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.navicon {
+    margin-right: 20px;
+}
+
+.navicon:hover {
+    cursor: pointer;
+    opacity: .7;
+}
