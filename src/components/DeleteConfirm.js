@@ -3,7 +3,7 @@ import { logOut } from '../reducers/reducer';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { GrStatusWarning } from 'react-icons/gr';
+import { IoMdWarning } from 'react-icons/io';
 
 
 function DeleteConfirm(props) {
@@ -35,9 +35,9 @@ function DeleteConfirm(props) {
   }
 
   return (
-    <div>
+    <div style={{marginTop: '60px'}}>
       <h3 style={{color: text}}>Are you sure you want to delete your account? This will delete all your info.  If you click confirm, there is no turning back!</h3>
-      <GrStatusWarning size="50px"/><br/>
+      <IoMdWarning size="50px" style={{color: text}} /><br/>
       <button style={{color: text}} onClick={deleteAccount}>Confirm: Delete Account Permanently</button>
       <p className="clickable" style={{color: text}} onClick={props.returnToAccount}>Cancel, return to account settings</p>
     </div>

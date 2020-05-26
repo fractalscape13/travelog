@@ -7,6 +7,7 @@ import axios from 'axios';
 import { setUser } from '../reducers/reducer';
 import { FaScroll } from "react-icons/fa";
 import tulum from '../assets/tulum.png'
+import './Splash.css'
 
 function Splash() {
   const loggedIn = useSelector(state => state.loggedIn);
@@ -35,7 +36,14 @@ function Splash() {
     <div>
       <img src={tulum} alt="tulum" />
       {loggedIn ? null :  <Signin /> }
-      {loggedIn ? <FaScroll size="40px" className="clickable" onClick={pushToAccount} /> :  null }
+      <div className="blogHeader" >
+        <div className="blogTitle">
+          <h1>Microblog</h1> 
+        </div>
+        <div className="blogIcons">
+          {loggedIn ? <FaScroll size="40px" className="clickable" onClick={pushToAccount} /> :  null }
+        </div>
+        </div>
       <Blog />
     </div>
   );

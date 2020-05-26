@@ -1,5 +1,5 @@
 .account{
-    padding-top: 50px;
+    padding-top: 5px;
     margin-top: -5px;
     height: 100%;
     width: 100%;
@@ -9,19 +9,8 @@
     width: 375px;
 }
 
-.spacer{
-    width: 20vw;
-}
-
-.buttonOrganizer{
-    width: 20vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .changeNameParent{
-    width: 60vw;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,6 +18,7 @@
 
 .changeNameContainer{
     display: flex;
+    margin-top: 60px;
 }
 
 #deleteButton{
@@ -39,3 +29,65 @@
 .box{
     transform-origin: 50% 50%;
 }
+
+.accountSettingsHeader{
+    border-bottom: 1px solid silver;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.accountSettingsTitle{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 75vw;
+    padding-left: 30px;
+}
+
+.accountSettingsIcons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25vw;
+    padding-right: 15px;
+}
+
+.accountNav{
+    border-bottom: 1px solid silver;
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.navElement{
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navElement:hover {
+    cursor: pointer;
+    background-color: white;
+    opacity: .7;
+}
+
+.paletteButton{
+    margin-top: 25px;
+}
+
+.colorsChild{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+}
+/* 
+.accountBody{
+    padding-top: 10px;
+} */

@@ -1,0 +1,21 @@
+.blogHeader{
+    border-bottom: 1px solid silver;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.blogIcons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10vw;
+}
+
+.blogTitle{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 90vw;
+    padding-left: 50px;
+}

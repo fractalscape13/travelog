@@ -5,9 +5,7 @@ function Blog() {
 
   return (
     <React.Fragment>
-      <hr />
       <div className="blog">
-        <h1>Microblog</h1> 
         <p className="blogPost">I'm baby neutra paleo distillery est echo park portland disrupt XOXO in. Velit street art veniam aliqua, flannel copper mug incididunt ea skateboard single-origin coffee. In typewriter art party, irony humblebrag organic pork belly hammock PBR&B artisan tacos VHS labore prism af. Dolore velit dreamcatcher, enim messenger bag chambray wayfarers live-edge actually locavore iceland.
 
         Beard wayfarers chicharrones chillwave leggings. Freegan blue bottle intelligentsia kitsch sartorial. Unicorn semiotics hammock minim PBR&B. Biodiesel subway tile chambray lorem edison bulb listicle dreamcatcher lyft hell of glossier hella fugiat gochujang.

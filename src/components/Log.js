@@ -8,8 +8,11 @@ import { setUser, logOut } from '../reducers/reducer';
 import axios from 'axios';
 import Splash from './Splash';
 import Account from './Account';
-import { FaListAlt } from 'react-icons/fa';
-import { FiSettings } from 'react-icons/fi';
+import Posts from './Posts';
+import NewPost from './NewPost';
+import { FaGlobe } from 'react-icons/fa';
+import { IoMdSettings } from 'react-icons/io';
+import { MdAddCircle } from 'react-icons/md';
 
 function Log() {
   const history = useHistory();
@@ -22,6 +25,7 @@ function Log() {
   const [background, setBackgroundColor] = useState('')
   const [headerColors, setHeaderColors] = useState('')
   const [text, setTextColor] = useState('')
+  const [newPost, setNewPost] = useState(false)
 
   useEffect(() => {
     setDisplayCheck(false)
@@ -89,7 +93,7 @@ function Log() {
 
   return (
     <div className="logParent" style={{backgroundColor: background}}>
-      <img src={tulum} alt="tulum" />
+      <img src={sunset} alt="tulum" />
     { loggedIn && !settings ? 
             <div style={{visibility: visibility}}>
               <div className="logHeader">
@@ -97,13 +101,17 @@ function Log() {
                   <h1 style={{color: headerColors}} className={displayCheck ? "visible" : "hidden"} >{currentUser}'s Travelog</h1> 
                 </div>
                 <div className="navBar">
-                  <FaListAlt title="Blog" style={{color: headerColors}} size="30px" className="navicon" onClick={pushToSplash} />
-
-                  <FiSettings title="Account Settings" className="navicon" style={{color: headerColors}} size="30px" onClick={() => setSettings(true)} />
-                  <button style={{color: text}} onClick={signOut}>Sign out</button>
+                  <MdAddCircle  title="Add a post" className="navicon" size="30px" style={{color: headerColors}} onClick={() => setNewPost(true)}/>
+                  <FaGlobe title="Blog" style={{color: headerColors}} size="25px" className="navicon" onClick={pushToSplash} />
+                  <IoMdSettings title="Account Settings" className="navicon" style={{color: headerColors}} size="30px" onClick={() => setSettings(true)} />
+                  <button style={{color: headerColors}} onClick={signOut}>Sign out</button>
                 </div>
                </div>
-               <h3 style={{color: headerColors}}>Log Listings go here</h3>
+               {newPost ? 
+               <NewPost cancel={() => setNewPost(false)} />
+               :
+               <Posts />
+               }
             </div>
             : 
             loggedIn && settings ?
