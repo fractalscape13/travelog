@@ -8,7 +8,6 @@ import './Login.css'
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState('');
   const [loggedInFailed, setLoggedInFailed] = useState(false);
 
   const dispatch = useDispatch();
@@ -22,7 +21,9 @@ function Login(props) {
         let action = {
           loggedIn: res.data.loggedIn,
           currentUser: res.data.name,
-          currentId: res.data.id
+          currentId: res.data.id,
+          fileNamePathCover: res.data.fileNamePathCover,
+          fileNamePathProfile: res.data.fileNamePathProfile
         }
         dispatch(setUser(action));
         history.push("/log");

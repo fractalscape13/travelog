@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Log.css'
-import tulum from '../assets/tulum.png'
-import sunset from '../assets/sunset.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { setUser, logOut } from '../reducers/reducer';
+import { setUser, logOut, filePathCover } from '../reducers/reducer';
 import axios from 'axios';
 import Splash from './Splash';
 import Account from './Account';
@@ -18,32 +16,37 @@ function Log() {
   const history = useHistory();
   const dispatch = useDispatch();
   const loggedIn = useSelector(state => state.loggedIn);
-  const currentUserRedux = useSelector(state => state.currentUser);
+  const [fileNamePathCover, setFileNamePathCover] = useState('')
+  const [coverFileStore, setCoverFileStore] = useState('');
   const [settings, setSettings] = useState(false);
   const [visibility, setVisibility] = useState("hidden")
   const [currentUser, setCurrentUser] = useState('');
   const [displayCheck, setDisplayCheck] = useState(false);
   const [background, setBackgroundColor] = useState('')
   const [headerColors, setHeaderColors] = useState('')
-  const [text, setTextColor] = useState('')
   const [newPost, setNewPost] = useState(false)
+  
 
   useEffect(() => {
     setDisplayCheck(false)
+    setVisibility("hidden")
     axios.get('/auth/getSession')
       .then(res => {
         if(res.data.loggedIn){
             const action = {
               loggedIn: res.data.loggedIn,
               currentId: res.data.id,
-              currentUser: res.data.name
+              currentUser: res.data.name,
+              fileNamePathCover: res.data.fileNamePathCover,
+              fileNamePathProfile: res.data.fileNamePathProfile
             }
-            setCurrentUser(res.data.name)
             dispatch(setUser(action));
+            setCurrentUser(res.data.name)
             setDisplayCheck(true)
+            setFileNamePathCover(res.data.fileNamePathCover)
             setBackgroundColor(res.data.colorProfile.background)
             setHeaderColors(res.data.colorProfile.headerColors)
-            setTextColor(res.data.colorProfile.text)
+            setCoverFileStore(fileNamePathCover)
             setVisibility("visible")
           } else {
             history.push('/')
@@ -69,20 +72,23 @@ function Log() {
   function backToAccount(){
     setVisibility("hidden")
     setSettings(false)
+    dispatch(filePathCover(coverFileStore))
     axios.get('/auth/getSession')
       .then(res => {
         if(res.data.loggedIn){
             const action = {
               loggedIn: res.data.loggedIn,
               currentId: res.data.id,
-              currentUser: res.data.name
+              currentUser: res.data.name,
+              fileNamePathCover: res.data.fileNamePathCover,
+              fileNamePathProfile: res.data.fileNamePathProfile
             }
             setCurrentUser(res.data.name)
+            setFileNamePathCover(res.data.fileNamePathCover)
             dispatch(setUser(action));
             setDisplayCheck(true)
             setBackgroundColor(res.data.colorProfile.background)
             setHeaderColors(res.data.colorProfile.headerColors)
-            setTextColor(res.data.colorProfile.text)
             setVisibility("visible")
         } else {
             history.push('/')
@@ -90,9 +96,11 @@ function Log() {
       })
   }
 
+  
+  let imagePath = 'uploads/' + fileNamePathCover.toString()
   return (
     <div className="logParent" style={{backgroundColor: background}}>
-      <img src={sunset} alt="tulum" />
+      <img src={imagePath} alt="tulum" style={visibility ? {visibility: "visible"} : {visibility: "hidden"}}/>
     { loggedIn && !settings ? 
             <div style={{visibility: visibility}}>
               <div className="logHeader">
@@ -115,7 +123,7 @@ function Log() {
             : 
             loggedIn && settings ?
             <div className="accountContainer" >
-              <Account updateName={updateName} backToAccount={backToAccount} />
+              <Account updateName={updateName} backToAccount={backToAccount} setFileNamePathCover={setFileNamePathCover} />
             </div>
             :
             <Splash />

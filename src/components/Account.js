@@ -153,7 +153,7 @@ function Account(props) {
                 <DeleteConfirm userId={userId} returnToAccount={() => setDeleteAccount(false)}/>
                 :
                 changePhotos ?
-                <Photos />
+                <Photos setFileNamePathCover={props.setFileNamePathCover}/>
                 :
                 <div className="colorsParent">
                 </div>

@@ -5,7 +5,7 @@ const multer = require('multer')
 const cors = require('cors');
 const app = express();
 const {apiPort, SESSION_SECRET, CONNECTION_STRING} = process.env
-const { login, registerUser, deleteUser, logout, getSession, editUser, saveColorProfile, getColorProfile, newPost, getPosts, editPost, deletePost } = require('./auth-controller')
+const { login, registerUser, deleteUser, logout, getSession, editUser, saveColorProfile, getColorProfile, newPost, getPosts, editPost, deletePost, saveFilePaths } = require('./auth-controller')
 
 app.use(express.json());
 app.use(cors())
@@ -29,8 +29,7 @@ let storage = multer.diskStorage({
   
   let upload = multer({storage: storage}).single('file')
   
-  app.post('/uploadCover', function(req, res) {
-      console.log('this fired, req.file', req.file)
+  app.post('/upload', function(req, res) {
     upload(req, res, function(err) {
       if (err instanceof multer.MulterError) {
         return res.status(500).json(err)
@@ -42,7 +41,6 @@ let storage = multer.diskStorage({
   });
   app.post('/uploadProfile', function(req, res) {
       upload(req, res, function(err) {
-        console.log('this fired, req.file', req.file)
       if (err instanceof multer.MulterError) {
         return res.status(500).json(err)
       } else if (err) {
@@ -64,5 +62,6 @@ app.post('/api/post', newPost)
 app.get('/api/getPosts', getPosts)
 app.post('/api/editPost', editPost)
 app.put('/api/deletePost', deletePost)
+app.post('/api/saveFilePaths', saveFilePaths)
 
 app.listen(apiPort, () => console.log(`Servin' up some 🔥 🔥 🔥 on Port ${apiPort}`));

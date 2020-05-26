@@ -1,6 +1,4 @@
 import React from 'react';
-import tulum from '../assets/tulum.png'
-import sunset from '../assets/sunset.png'
 import { Palette } from 'color-thief-react';
 import './Colors.css'
 
@@ -9,7 +7,7 @@ function Colors(props) {
   return (
     <div>
         <h2 style={{color: props.pickedStyle}}>{props.styleType}</h2>
-      <Palette src={sunset} colorCount={10}>
+      <Palette src='uploads/sunset.png' colorCount={10}>
         {({ data, loading, error }) => (
           <React.Fragment>
             <div className="paletteParent">

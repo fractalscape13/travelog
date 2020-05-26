@@ -6,13 +6,12 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { setUser } from '../reducers/reducer';
 import { FaScroll } from "react-icons/fa";
-import tulum from '../assets/tulum.png'
 import './Splash.css'
 
 function Splash() {
   const loggedIn = useSelector(state => state.loggedIn);
-  const dispatch = useDispatch();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   function pushToAccount(){
     history.push('/log')
@@ -34,7 +33,7 @@ function Splash() {
 
   return (
     <div>
-      <img src={tulum} alt="tulum" />
+      <img src='uploads/tulum.png' alt="tulum" />
       {loggedIn ? null :  <Signin /> }
       <div className="blogHeader" >
         <div className="blogTitle">

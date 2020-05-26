@@ -22,8 +22,11 @@ module.exports = {
               id: foundUser[0]._id,
               colorProfile: foundUser[0].colorProfile,
               logArray: foundUser[0].logArray,
-              loggedIn: true
+              loggedIn: true,
+              fileNamePathCover: foundUser[0].fileNamePathCover,
+              fileNamePathProfile:  foundUser[0].fileNamePathProfile
             };
+            console.log('user sesh, found user?', foundUser[0])
             req.session.user = user;
             res.status(200).send(user);
           } else {
@@ -59,7 +62,8 @@ module.exports = {
           bcrypt.genSalt(saltRounds).then(salt => {
             bcrypt.hash(password, salt).then(hashedPassword => {
               usersCollection
-                .insertOne({ email, name, password: hashedPassword, colorProfile: { background: 'rgb(61, 54, 54)', headerColors: 'rgb(245, 245, 214)', text: 'rgb(245, 245, 214)'}, logArray: [] })
+                .insertOne({ email, name, password: hashedPassword, colorProfile: { background: 'rgb(61, 54, 54)', headerColors: 'rgb(245, 245, 214)', text: 'rgb(245, 245, 214)'}, logArray: [], fileNamePathCover: 'tulum.png',
+                fileNamePathProfile: 'sunset.png' })
                 .then(() => {
                   usersCollection
                     .find({email})
@@ -70,7 +74,9 @@ module.exports = {
                         id: results[0]._id,
                         colorProfile: results[0].colorProfile,
                         logArray: results[0].logArray,
-                        loggedIn: true
+                        loggedIn: true,
+                        fileNamePathCover: results[0].fileNamePathCover,
+                        fileNamePathProfile: results[0].fileNamePathProfile
                       };
                       req.session.user = user;
                       res.status(200).send(user);
@@ -115,17 +121,16 @@ module.exports = {
         .find({name: name})
         .toArray()
         .then(results => {
-          console.log('initial user results', results)
           let user = {
             name: results[0].name,
             id: results[0]._id,
             colorProfile: results[0].colorProfile,
             logArray: results[0].logArray,
-            loggedIn: true
+            loggedIn: true,
+            fileNamePathCover: results[0].fileNamePathCover,
+            fileNamePathProfile: results[0].fileNamePathProfile
           }       
-          console.log('this is req.session', req.session)
           req.session.user = user
-          console.log('this is req.session AFTER', req.session)
           res.status(200).send(results);
         }).catch(err => console.log(err))
       })
@@ -170,7 +175,6 @@ module.exports = {
         .find({ _id: ObjectID(id) })
         .toArray()
         .then(results => {
-          console.log('results', results)
           let styles = {
             backround: results[0].colorProfile.background,
             headerColors: results[0].colorProfile.headerColors,
@@ -196,7 +200,6 @@ module.exports = {
         .find({ _id: ObjectID(id) })
         .toArray()
         .then(results => {
-          console.log('results', results)
           let newArray = [...results[0].logArray, post]
           usersCollection
           .updateOne({ _id: ObjectID(id) }, { $set: { logArray: newArray}})
@@ -225,7 +228,7 @@ module.exports = {
   },
   editPost: (req, res) => {
     let id = req.session.user.id
-    let {location, description, originalLocation, originalDescription} = req.body
+    let {location, description, originalLocation} = req.body
     let editedPost = {location, description}
     MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
       .then(async (client) => {
@@ -279,6 +282,32 @@ module.exports = {
           usersCollection
           .updateOne({ _id: ObjectID(id) }, { $set: { logArray: arrEdit}})
           res.status(200).send(arrEdit)
+        }).catch(err => console.log(err))
+      })
+      .catch((e) => console.log(e));
+  },
+  saveFilePaths: (req, res) => {
+    let id = req.session.user.id
+    let {fileNamePathCover} = req.body
+    MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
+      .then(async (client) => {
+        console.log("Connected to Database");
+        const db = client.db("travelog");
+        const usersCollection = db.collection("users");
+        let mongodb = require("mongodb");
+        let ObjectID = mongodb.ObjectID;
+        let finished = await usersCollection
+        .updateOne({ _id: ObjectID(id) }, { $set: {fileNamePathCover: fileNamePathCover}})
+        usersCollection
+        .find({ _id: ObjectID(id) })
+        .toArray()
+        .then(results => {
+          console.log('results', results)
+          let filePaths = {
+            fileNamePathCover: results[0].fileNamePathCover
+          }
+          req.session.user.fileNamePathCover = results[0].fileNamePathCover
+          res.status(200).send(filePaths.fileNamePathCover)
         }).catch(err => console.log(err))
       })
       .catch((e) => console.log(e));

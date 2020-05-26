@@ -8,7 +8,6 @@ import { IoMdWarning } from 'react-icons/io';
 
 function DeleteConfirm(props) {
   const [text, setTextColor] = useState('')
-  const [name, setName] = useState('')
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -16,7 +15,6 @@ function DeleteConfirm(props) {
     axios.get('/auth/getSession')
         .then(res => {
             if(res.data.loggedIn){
-                setName(res.data.name)
                 setTextColor(res.data.colorProfile.text)
             }
         }).catch(e => console.log(e))
