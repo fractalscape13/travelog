@@ -180,5 +180,107 @@ module.exports = {
         }).catch(err => console.log(err))
       })
       .catch((e) => console.log(e));
+  },
+  newPost: (req, res) => {
+    const { location, description } = req.body;
+    let id = req.session.user.id
+    let post = {location, description}
+    MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
+      .then(async (client) => {
+        console.log("Connected to Database");
+        const db = client.db("travelog");
+        const usersCollection = db.collection("users");
+        let mongodb = require("mongodb");
+        let ObjectID = mongodb.ObjectID;
+        usersCollection
+        .find({ _id: ObjectID(id) })
+        .toArray()
+        .then(results => {
+          console.log('results', results)
+          let newArray = [...results[0].logArray, post]
+          usersCollection
+          .updateOne({ _id: ObjectID(id) }, { $set: { logArray: newArray}})
+          res.status(200).send('completed')
+        }).catch(err => console.log(err))
+      })
+      .catch((e) => console.log(e));
+  },
+  getPosts: (req, res) => {
+    let id = req.session.user.id
+    MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
+      .then(async (client) => {
+        console.log("Connected to Database");
+        const db = client.db("travelog");
+        const usersCollection = db.collection("users");
+        let mongodb = require("mongodb");
+        let ObjectID = mongodb.ObjectID;
+        usersCollection
+        .find({ _id: ObjectID(id) })
+        .toArray()
+        .then(results => {
+          res.status(200).send(results[0].logArray)
+        }).catch(err => console.log(err))
+      })
+      .catch((e) => console.log(e));
+  },
+  editPost: (req, res) => {
+    let id = req.session.user.id
+    let {location, description, originalLocation, originalDescription} = req.body
+    let editedPost = {location, description}
+    MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
+      .then(async (client) => {
+        console.log("Connected to Database");
+        const db = client.db("travelog");
+        const usersCollection = db.collection("users");
+        let mongodb = require("mongodb");
+        let ObjectID = mongodb.ObjectID;
+        usersCollection
+        .find({ _id: ObjectID(id) })
+        .toArray()
+        .then(results => {
+          let array = results[0].logArray
+          let index
+          for (let i = 0; i < array.length; i++){
+            if (array[i].location == originalLocation){
+              index = i
+            }
+          }
+          let arrEdit = array.filter((elem, i) => i !== index)
+          let finalArr = [...arrEdit, editedPost]
+          usersCollection
+          .updateOne({ _id: ObjectID(id) }, { $set: { logArray: finalArr}})
+          res.status(200).send(finalArr)
+        }).catch(err => console.log(err))
+      })
+      .catch((e) => console.log(e));
+  }, 
+  deletePost: (req, res) => {
+    let id = req.session.user.id
+    let {location} = req.body
+    MongoClient.connect(CONNECTION_STRING, { useUnifiedTopology: true })
+      .then(async (client) => {
+        console.log("Connected to Database");
+        const db = client.db("travelog");
+        const usersCollection = db.collection("users");
+        let mongodb = require("mongodb");
+        let ObjectID = mongodb.ObjectID;
+        usersCollection
+        .find({ _id: ObjectID(id) })
+        .toArray()
+        .then(results => {
+          let array = results[0].logArray
+          let index
+          for (let i = 0; i < array.length; i++){
+            if (array[i].location == location){
+              index = i
+            }
+          }
+          let arrEdit = array.filter((elem, i) => i !== index)
+          usersCollection
+          .updateOne({ _id: ObjectID(id) }, { $set: { logArray: arrEdit}})
+          res.status(200).send(arrEdit)
+        }).catch(err => console.log(err))
+      })
+      .catch((e) => console.log(e));
   }
 };

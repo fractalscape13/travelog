@@ -3,8 +3,6 @@ import axios from 'axios';
 import Colors from './Colors';
 import DeleteConfirm from './DeleteConfirm';
 import './Account.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 import { FaPalette } from 'react-icons/fa';
@@ -34,7 +32,6 @@ function Account(props) {
         axios.get('/auth/getSession')
             .then(res => {
                 if(res.data.loggedIn){
-                    console.log('this is res.data', res.data)
                     setName(res.data.name)
                     setUserId(res.data.id)
                     setBackgroundColor(res.data.colorProfile.background)

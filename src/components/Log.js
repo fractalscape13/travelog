@@ -18,6 +18,7 @@ function Log() {
   const history = useHistory();
   const dispatch = useDispatch();
   const loggedIn = useSelector(state => state.loggedIn);
+  const currentUserRedux = useSelector(state => state.currentUser);
   const [settings, setSettings] = useState(false);
   const [visibility, setVisibility] = useState("hidden")
   const [currentUser, setCurrentUser] = useState('');
@@ -32,7 +33,6 @@ function Log() {
     axios.get('/auth/getSession')
       .then(res => {
         if(res.data.loggedIn){
-          console.log('this is res.data from the log component use effect', res.data)
             const action = {
               loggedIn: res.data.loggedIn,
               currentId: res.data.id,
@@ -45,9 +45,9 @@ function Log() {
             setHeaderColors(res.data.colorProfile.headerColors)
             setTextColor(res.data.colorProfile.text)
             setVisibility("visible")
-        } else {
+          } else {
             history.push('/')
-        }
+          }
       })
   }, [])
 
@@ -72,7 +72,6 @@ function Log() {
     axios.get('/auth/getSession')
       .then(res => {
         if(res.data.loggedIn){
-          console.log('this is res.data from BACKTOACCOUNT', res.data)
             const action = {
               loggedIn: res.data.loggedIn,
               currentId: res.data.id,
@@ -108,7 +107,7 @@ function Log() {
                 </div>
                </div>
                {newPost ? 
-               <NewPost cancel={() => setNewPost(false)} />
+               <NewPost backToLog={() => setNewPost(false)} edit={false} post={{location: '', description: ''}} />
                :
                <Posts />
                }

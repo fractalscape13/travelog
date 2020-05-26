@@ -1,0 +1,13 @@
+.photoForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photoinput {
+  border: none;
+}
+
+.photoinput:hover {
+  opacity: .7;
+}

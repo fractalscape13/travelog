@@ -24,7 +24,12 @@ function Register(props) {
     axios
       .post("/auth/register", body)
       .then(res => {
-        dispatch(setUser(res.data));
+        let action = {
+          loggedIn: res.data.loggedIn,
+          currentUser: res.data.name,
+          currentId: res.data.id
+        }
+        dispatch(setUser(action));
         history.push("/log");
       })
       .catch(err => {

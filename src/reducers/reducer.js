@@ -31,8 +31,8 @@ export default (state = initialState, action) => {
     case SET_USER:
         return Object.assign({}, state, {
             loggedIn: action.payload.loggedIn,
-            currentUser: action.payload.name,
-            currentId: action.payload.id
+            currentUser: action.payload.currentUser,
+            currentId: action.payload.currentId
         })
     default:
       return state;

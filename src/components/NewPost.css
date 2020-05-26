@@ -1,0 +1,10 @@
+#descriptionInputField{
+    width: 50vw;
+    height: 30vh;
+}
+
+.newpost {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
