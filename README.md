@@ -4,7 +4,7 @@
 #### By _**Joseph Wangemann & Nathan Wangemann**_
 
 ## Description
-_App to store info about travel destinations_
+_App to store info about travel destinations. A user can customize their profile by setting the background, header and text colors for their log page from a palette created from the profile image by Color-Thief._
 
 ## Specs / Screen Shots
 * On page load, a user will see...
